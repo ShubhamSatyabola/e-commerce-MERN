@@ -44,13 +44,16 @@ const Navbar = ({children}) => {
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
                   <div className="flex items-center">
-                    <div className="flex-shrink-0">
-                      <img
-                        className="h-8 w-8"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                        alt="Your Company"
-                      />
-                    </div>
+                    <Link to="/">
+                      <div className="flex-shrink-0">
+                        <img
+                          className="h-8 w-8"
+                          src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                          alt="Your Company"
+                        />
+                      </div>
+                    </Link>
+
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
                         {navigation.map((item) => (
@@ -189,7 +192,7 @@ const Navbar = ({children}) => {
                         {user.email}
                       </div>
                     </div>
-                     <Link to="/cart">
+                    <Link to="/cart">
                       <button
                         type="button"
                         className="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -200,7 +203,7 @@ const Navbar = ({children}) => {
                           aria-hidden="true"
                         />
                       </button>
-                    </Link> 
+                    </Link>
 
                     <span className="inline-flex items-center rounded-md mb-5 ml-0 bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
                       3

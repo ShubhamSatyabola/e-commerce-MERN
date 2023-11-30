@@ -37,10 +37,10 @@ const products = [
 ];
 
 export function Cart() {
-  const count = useSelector(selectCount);
+  // const count = useSelector(selectCount);
 
-  const dispatch = useDispatch();
-   const [open, setOpen] = useState(true);
+  // const dispatch = useDispatch();
+  //  const [open, setOpen] = useState(true);
 
 
   return (
@@ -127,7 +127,7 @@ export function Cart() {
                 <button
                   type="button"
                   className="font-medium text-indigo-600 hover:text-indigo-500"
-                  onClick={() => setOpen(false)}
+                  // onClick={() => setOpen(false)}
                 >
                   Continue Shopping
                   <span aria-hidden="true"> &rarr;</span>
