@@ -8,6 +8,33 @@ export default function fetchAllProducts() {
   );
 }
 
+export function fetchCategories() {
+  return new Promise(async (resolve) =>{
+    const response = await fetch('http://localhost:8080/categories')
+    const data = await response.json()
+    // console.log(data)
+    resolve({data})}
+  );
+}
+
+export function fetchBrands() {
+  return new Promise(async (resolve) =>{
+    const response = await fetch('http://localhost:8080/brands')
+    const data = await response.json()
+    // console.log(data)
+    resolve({data})}
+  );
+}
+
+export function fetchProductById(id) {
+  return new Promise(async (resolve) =>{
+    const response = await fetch('http://localhost:8080/products/'+id)
+    const data = await response.json()
+    // console.log(data)
+    resolve({data})}
+  );
+}
+
 export function fetchProductsByFilter(filter,sort,pagination) {
   let queryString = ""
   for (let key in filter){

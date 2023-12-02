@@ -1,11 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import fetchAllProducts , {fetchProductsByFilter} from './product-list-API';
+import fetchAllProducts , {fetchProductsByFilter , fetchBrands ,fetchCategories, fetchProductById} from './product-list-API';
 
 const initialState = {
   products: [],
+  brands:[],
+  categories:[],
   status: 'idle',
-  totalItems:0
+  totalItems:0,
+  selectedProduct:null
+
 };
 
 
@@ -17,6 +21,34 @@ export const fetchAllProductAsync = createAsyncThunk(
     return response.data;
   }
 );
+
+export const fetchBrandsAsync = createAsyncThunk(
+  "products/fetchBrands",
+  async () => {
+    const response = await fetchBrands();
+    // The value we return becomes the `fulfilled` action payload
+    return response.data;
+  }
+);
+
+export const fetchCategoriesAsync = createAsyncThunk(
+  "products/fetchCategories",
+  async () => {
+    const response = await fetchCategories();
+    // The value we return becomes the `fulfilled` action payload
+    return response.data;
+  }
+);
+
+export const fetchProductByIdAsync = createAsyncThunk(
+  "products/fetchProductById",
+  async (id) => {
+    const response = await fetchProductById(id);
+    // The value we return becomes the `fulfilled` action payload
+    return response.data;
+  }
+);
+
 export const fetchProductsByFilterAsync = createAsyncThunk(
   "products/fetchProductsByFilter",
   async ({filter,sort,pagination}) => {
@@ -53,8 +85,28 @@ export const productSlice = createSlice({
       .addCase(fetchProductsByFilterAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.products = action.payload.products;
-                state.totalItems = action.payload.totalItems;
-
+        state.totalItems = action.payload.totalItems;
+      })
+      .addCase(fetchBrandsAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchBrandsAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.brands = action.payload;
+      })
+      .addCase(fetchCategoriesAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchCategoriesAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.categories = action.payload;
+      })
+      .addCase(fetchProductByIdAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchProductByIdAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.selectedProduct = action.payload;
       });
   },
 });
@@ -65,6 +117,9 @@ export const { increment,} = productSlice.actions;
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectAllProducts = (state) => state.product.products;
+export const selectBrands = (state) => state.product.brands;
+export const selectCategories = (state) => state.product.categories;
+export const selectProductById = (state) => state.product.selectedProduct;
 export const selectTotalItems = (state) => state.product.totalItems;
 
 
