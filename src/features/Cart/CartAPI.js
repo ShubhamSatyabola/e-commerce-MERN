@@ -45,7 +45,23 @@ export function deleteCartItem(id) {
     // console.log(response);
     const data = await response.json();
 
-    resolve({ data });
+    resolve({ data:{id:id} });
+  });
+}
+
+export function deleteCart(id) {
+  return new Promise(async (resolve) => {
+    const response = await fetchCartById(id)
+     
+  
+    // console.log(response);
+    const data =  response.data;
+
+    data.forEach(async (element) => {
+       await deleteCartItem(element.id)
+    });
+    
+    resolve({ status: 'deleted' });
   });
 }
 

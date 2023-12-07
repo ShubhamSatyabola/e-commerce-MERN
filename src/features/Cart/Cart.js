@@ -4,12 +4,11 @@ import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
   deleteCartItemAsync,
-  fetchCartByIdAsync,
   selectCart,
   updateCartAsync,
 } from './cartSlice';
 import { Link } from "react-router-dom";
-import { selectLoggedInUser } from "../auth/authSlice";
+import { Navigate } from "react-router-dom";
 
 export function Cart() {
   const dispatch = useDispatch();
@@ -32,6 +31,9 @@ export function Cart() {
 
   return (
     <>
+    {
+      !cartItems.length && <Navigate to={'/'} replace={true}></Navigate>
+    }
       <div className="mx-auto bg-white max-w-7xl px-4 sm:px-6 lg:px-8">
         <h1 className="text-4xl font-bold tracking-tight text-gray-900">
           Cart
