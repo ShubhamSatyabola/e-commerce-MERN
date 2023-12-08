@@ -1,7 +1,7 @@
 import { Cart } from '../features/Cart/Cart';  
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
-import { selectLoggedInUser, updateUserAsync } from '../features/auth/authSlice';
+import { selectUserInfo, updateUserAsync } from '../features/user/userSlice';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { Link , Navigate } from "react-router-dom";
@@ -16,7 +16,7 @@ const Checkout = () => {
      formState: { errors },
    } = useForm();
 const dispatch = useDispatch()
-   const user = useSelector(selectLoggedInUser)
+   const user = useSelector(selectUserInfo)
    const cartItems = useSelector(selectCart);
    const orderPlaced = useSelector(selectOrderPlaced)
    const totalAmount = cartItems.reduce(

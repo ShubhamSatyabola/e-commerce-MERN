@@ -24,14 +24,7 @@ export const checkUserAsync = createAsyncThunk(
     return response.data;
   }
 );
-export const updateUserAsync = createAsyncThunk(
-  "user/updateUser",
-  async (userData) => {
-    const response = await updateUser(userData);
-    // The value we return becomes the `fulfilled` action payload
-    return response.data;
-  }
-);
+
 export const counterSlice = createSlice({
   name: 'user',
   initialState,
@@ -65,13 +58,7 @@ export const counterSlice = createSlice({
         state.status = "idle";
         state.error = action.error;
       })
-      .addCase(updateUserAsync.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(updateUserAsync.fulfilled, (state, action) => {
-        state.status = "idle";
-        state.loggedInUser = action.payload;
-      });
+     
   },
 });
 
