@@ -4,19 +4,19 @@ import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/outl
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCart } from "../Cart/cartSlice";
+import { selectUserInfo } from "../user/userSlice";
+import { selectLoggedInUser } from "../auth/authSlice";
 
-const user = {
-  name: "Tom Cook",
-  email: "tom@example.com",
-  imageUrl:
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-};
+// const user = {
+//   name: "Tom Cook",
+//   email: "tom@example.com",
+//   imageUrl:
+//     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+// };
 const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Team", href: "#", current: false },
-  { name: "Projects", href: "#", current: false },
-  { name: "Calendar", href: "#", current: false },
-  { name: "Reports", href: "#", current: false },
+  { name: "Home", link: "/", user: true },
+  { name: "Admin", link: "/adminHome", admin: true },
+  { name: "Orders", link: "/admin/orders", admin: true },
 ];
 const userNavigation = [
   { name: "Your Profile", link: "/profile" },
@@ -31,6 +31,8 @@ function classNames(...classes) {
 const Navbar = ({children}) => {
   const dispatch = useDispatch()
   const cartItems = useSelector(selectCart)
+  const user = useSelector(selectLoggedInUser)
+  // console.log(user);
   return (
     <>
       {/*
@@ -60,21 +62,23 @@ const Navbar = ({children}) => {
 
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
-                        {navigation.map((item) => (
-                          <a
-                            key={item.name}
-                            href={item.href}
-                            className={classNames(
-                              item.current
-                                ? "bg-gray-900 text-white"
-                                : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                              "rounded-md px-3 py-2 text-sm font-medium"
-                            )}
-                            aria-current={item.current ? "page" : undefined}
-                          >
-                            {item.name}
-                          </a>
-                        ))}
+                        {navigation.map((item) =>
+                          item[user.role] ? (
+                            <Link
+                              key={item.name}
+                              to={item.link}
+                              className={classNames(
+                                item.current
+                                  ? "bg-gray-900 text-white"
+                                  : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                                "rounded-md px-3 py-2 text-sm font-medium"
+                              )}
+                              aria-current={item.current ? "page" : undefined}
+                            >
+                              {item.name}
+                            </Link>
+                          ) : null
+                        )}
                       </div>
                     </div>
                   </div>
@@ -92,10 +96,11 @@ const Navbar = ({children}) => {
                           />
                         </button>
                       </Link>
-                    { cartItems.length>0 && <span className="inline-flex items-center rounded-md mb-5 -ml-0 bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
-                      {cartItems.length}
-                    </span>
-}
+                      {cartItems.length > 0 && (
+                        <span className="inline-flex items-center rounded-md mb-5 -ml-0 bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
+                          {cartItems.length}
+                        </span>
+                      )}
                       {/* Profile dropdown */}
                       <Menu as="div" className="relative ml-3">
                         <div>
@@ -104,7 +109,7 @@ const Navbar = ({children}) => {
                             <span className="sr-only">Open user menu</span>
                             <img
                               className="h-8 w-8 rounded-full"
-                              src={user.imageUrl}
+                              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                               alt=""
                             />
                           </Menu.Button>
@@ -163,10 +168,10 @@ const Navbar = ({children}) => {
               <Disclosure.Panel className="md:hidden">
                 <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
                   {navigation.map((item) => (
-                    <Disclosure.Button
+                    item[user.role] ? <Link
                       key={item.name}
                       as="a"
-                      href={item.href}
+                      to={item.link}
                       className={classNames(
                         item.current
                           ? "bg-gray-900 text-white"
@@ -176,7 +181,8 @@ const Navbar = ({children}) => {
                       aria-current={item.current ? "page" : undefined}
                     >
                       {item.name}
-                    </Disclosure.Button>
+                    </Link>:null
+                    
                   ))}
                 </div>
                 <div className="border-t border-gray-700 pb-3 pt-4">
@@ -209,9 +215,11 @@ const Navbar = ({children}) => {
                       </button>
                     </Link>
 
-                    {cartItems.length>0 && <span className="inline-flex items-center rounded-md mb-5 ml-0 bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
-                      {cartItems.length}
-                    </span>}
+                    {cartItems.length > 0 && (
+                      <span className="inline-flex items-center rounded-md mb-5 ml-0 bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
+                        {cartItems.length}
+                      </span>
+                    )}
                   </div>
                   <div className="mt-3 space-y-1 px-2">
                     {userNavigation.map((item) => (

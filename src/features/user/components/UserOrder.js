@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchLoggedInUserOrdersAsync, selectUserInfo, selectUserOrders } from "../userSlice";
+import { Navigate } from "react-router-dom";
 
 
 export function UserOrders() {
@@ -18,9 +19,9 @@ const orders = useSelector(selectUserOrders)
         <h1 className="text-4xl mb-8 mt-8 font-bold tracking-tight text-gray-900">
           My Orders
         </h1>
-        {orders.map((order) => {
+        {orders.length>0? orders.map((order) => {
           return (
-            <div className="mx-auto mt-8 mb-8 bg-white max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div key={order.id} className="mx-auto mt-8 mb-8 bg-white max-w-7xl px-4 sm:px-6 lg:px-8">
               <h1 className="text-4xl font-bold tracking-tight text-gray-900">
                 Order #{order.id}
               </h1>
@@ -119,7 +120,7 @@ const orders = useSelector(selectUserOrders)
               </li>
             </div>
           );
-        })}
+        }):<Navigate to={'/'}  replace={true}></Navigate>}
       </div>
     </>
   );

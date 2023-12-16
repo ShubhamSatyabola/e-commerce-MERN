@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react'
 import { StarIcon } from '@heroicons/react/20/solid'
 import { RadioGroup } from '@headlessui/react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchProductByIdAsync, selectProductById } from '../product-list-slice'
+import { fetchProductByIdAsync, selectProductById } from '../Product-list/product-list-slice'
 import { useParams } from 'react-router-dom'
-import { selectLoggedInUser } from '../../auth/authSlice'
-import { addToCartAsync, selectCart } from '../../Cart/cartSlice'
-import { discountedPrice } from '../../../app/constant'
+import { selectLoggedInUser } from '../auth/authSlice'
+import { addToCartAsync } from '../Cart/cartSlice'
+import { discountedPrice } from '../../app/constant'
 
  const colors= [
     { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
@@ -30,32 +30,21 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function ProductDetail() {
+export default function AdminProductDetail() {
   const [selectedColor, setSelectedColor] = useState(colors[0])
   const [selectedSize, setSelectedSize] = useState(sizes[2])
   const dispatch = useDispatch()
   const product = useSelector(selectProductById)
   const user = useSelector(selectLoggedInUser)
-  const cartItems = useSelector(selectCart)
   const params = useParams()
   useEffect(()=>{
     dispatch(fetchProductByIdAsync(params.id))
   },[dispatch,params.id])
   const handleCart = (e) =>{
     e.preventDefault()
-    const Index = cartItems.findIndex(item => item.productId === product.id)
-
-    if(Index < 0){
-      const item = { ...product, quantity: 1, user: user.id ,productId:product.id};
-      const discount = discountedPrice(product);
-      item.price = discount;
-      delete item["id"];
-      dispatch(addToCartAsync(item));
-    }
-    else{
-      console.log('already added');
-    }
-    
+    const item = {...product,quantity:1,user:user.id}
+    delete(item["id"])
+    dispatch(addToCartAsync(item))
   }
   return (
     <div className="bg-white">

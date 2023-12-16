@@ -22,6 +22,11 @@ import UserProfilePage from './pages/UserProfilePage';
 import { fetchLoggedInUserAsync} from './features/user/userSlice';
 import Logout from './features/auth/components/Logout';
 import { ForgotPasswordPage } from './pages/ForgotPasswordPage';
+import ProtectedAdmin from './features/auth/components/ProtectedAdmin';
+import AdminHome from './pages/AdminHome ';
+import AdminProductDetailPage from './pages/AdminProductDetailPage';
+import ProductFormPage from './pages/ProductFormPage';
+import AdminOrdersPage from './pages/AdminOrdersPage';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -32,6 +37,46 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: "/adminHome",
+    element: (
+      <ProtectedAdmin>
+        <AdminHome></AdminHome>
+      </ProtectedAdmin>
+    ),
+  },
+  {
+    path: "/admin/orders",
+    element: (
+      <ProtectedAdmin>
+        <AdminOrdersPage></AdminOrdersPage>
+      </ProtectedAdmin>
+    ),
+  },
+  {
+    path: "/productForm",
+    element: (
+      <ProtectedAdmin>
+        <ProductFormPage></ProductFormPage>
+      </ProtectedAdmin>
+    ),
+  },
+  {
+    path: "/productForm/edit/:id",
+    element: (
+      <ProtectedAdmin>
+        <ProductFormPage></ProductFormPage>
+      </ProtectedAdmin>
+    ),
+  },
+  // {
+  //   path: "/adminProductDetail",
+  //   element: (
+  //     <ProtectedAdmin>
+  //       <AdminProductDetailPage></AdminProductDetailPage>
+  //     </ProtectedAdmin>
+  //   ),
+  // },
+  {
     path: "/login",
     element: <LoginPage />,
   },
@@ -41,7 +86,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/forgot-password",
-    element: <ForgotPasswordPage></ForgotPasswordPage>
+    element: <ForgotPasswordPage></ForgotPasswordPage>,
   },
   {
     path: "/cart",
@@ -107,7 +152,6 @@ const router = createBrowserRouter([
 function App() {
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUser)
-  
   useEffect(()=>{
       if(user){
         dispatch(fetchCartByIdAsync(user.id))
