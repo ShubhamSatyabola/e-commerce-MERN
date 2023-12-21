@@ -46,7 +46,7 @@ export default function ProductDetail() {
     const Index = cartItems.findIndex(item => item.productId === product.id)
 
     if(Index < 0){
-      const item = { ...product, quantity: 1, user: user.id ,productId:product.id};
+      const item = { ...product, quantity: 1, userId: user.id ,productId:product.id};
       const discount = discountedPrice(product);
       item.price = discount;
       delete item["id"];

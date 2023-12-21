@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { addToCart, deleteCartItem, fetchCartById, updateCart , deleteCart } from './CartAPI';
 
 const initialState = {
-  value: 0,
   status: 'idle',
   items:[]
 };
@@ -58,10 +57,10 @@ export const counterSlice = createSlice({
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
-    increment: (state) => {
+    // increment: (state) => {
       
-      state.value += 1;
-    },
+    //   state.value += 1;
+    // },
   
   },
   // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -113,7 +112,7 @@ export const counterSlice = createSlice({
   },
 });
 
-export const { increment,} = counterSlice.actions;
+// export const { increment,} = counterSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

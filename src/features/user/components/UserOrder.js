@@ -14,12 +14,12 @@ const orders = useSelector(selectUserOrders)
   },[user])
 
   return (
-    <>
+    
       <div className="mx-auto bg-white max-w-7xl px-4 sm:px-6 lg:px-8">
         <h1 className="text-4xl mb-8 mt-8 font-bold tracking-tight text-gray-900">
           My Orders
         </h1>
-        {orders.length>0? orders.map((order) => {
+        {orders.length && orders.map((order) => {
           return (
             <div key={order.id} className="mx-auto mt-8 mb-8 bg-white max-w-7xl px-4 sm:px-6 lg:px-8">
               <h1 className="text-4xl font-bold tracking-tight text-gray-900">
@@ -120,8 +120,8 @@ const orders = useSelector(selectUserOrders)
               </li>
             </div>
           );
-        }):<Navigate to={'/'}  replace={true}></Navigate>}
+        })}
       </div>
-    </>
+    
   );
 }

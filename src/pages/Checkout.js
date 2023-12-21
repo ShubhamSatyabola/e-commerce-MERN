@@ -48,7 +48,7 @@ const dispatch = useDispatch()
    }
 
     const handleOrder = (e) => {
-      dispatch(createOrderAsync({cartItems,totalAmount,totalItems,payment,address,user,status:'pending'}))
+      dispatch(createOrderAsync({cartItems,totalAmount,totalItems,payment,address,user,userId:user.id,status:'pending'}))
 
     };
   return (

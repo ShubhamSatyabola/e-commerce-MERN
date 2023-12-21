@@ -15,7 +15,7 @@ export function createOrder(order) {
 
 export function updateOrder(order) {
   return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:8080/orders/"+order.id, {
+    const response = await fetch("http://localhost:8080/orders/admin/"+order.id, {
       method: "PATCH",
       body: JSON.stringify(order),
       headers: { "content-type": "application/json" },
@@ -33,7 +33,7 @@ export function fetchAllOrders(pagination) {
      for (let key in pagination) {
        queryString += `${key}=${pagination[key]}&`;
      }
-    const response = await fetch("http://localhost:8080/orders?" + queryString);
+    const response = await fetch("http://localhost:8080/orders/admin?" + queryString);
     //  console.log(response);
     const data = await response.json();
     const totalOrders = await response.headers.get("X-Total-Count");
