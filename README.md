@@ -1,6 +1,23 @@
-# Getting Started with Create React App and Redux
+# Introduction
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+This repository contains source code for an E - commerce web app . The web app is created using React and Redux and Tailwind Css . Other dependecies / libraries used in app are react-router-dom for handling page routing and react-form library for handling form data and validation the backend of app is on Node js and the database used is mongo db with mongoose ORM . to connect frontend and backend fetch Api is used . 
+
+The App comprises of pages like .\
+signup : for user registration.\
+login : for logging in user.\
+product page : for listing all product .\
+order detail : for getting order details.\
+profile : to see user details .\
+chekout : for checking out .\
+cart : for seeing the items added for shopping.
+
+# Project folder Structure
+locate `src` folder .\
+`/src/app/constant` : folder consist of constant function used in project.\
+`/src/app/store` : folder consist of redux store for reducers and state management.\
+`/src/features` : Different feature are created and have their functionalities in their respective folders . Each feature has three js file in it , Component file which has the component logic , and Api.js which has all the Api logic and an slice.js file for handling the reducer logic and managing the state .\
+`/src/pages`:  Each file in this folder consist of various pages which combine component  from feature folder .\
+`/src/App` : The file in /src folder handles all the render logic used . 
 
 ## Available Scripts
 
