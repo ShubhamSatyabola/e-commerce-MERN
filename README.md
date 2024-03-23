@@ -3,8 +3,8 @@
 This repository contains source code for an E - commerce web app . The web app is created using React and Redux and Tailwind Css . Other dependecies / libraries used in app are react-router-dom for handling page routing and react-form library for handling form data and validation the backend of app is on Node js and the database used is mongo db with mongoose ORM . to connect frontend and backend fetch Api is used . \
 
 To use the app ner user must register and existing user must login himself using Email and password .\
-once registered user can move ahead to the protected routes like product page to see the product and can add them to cart . 
-Once product add  to cart user can checkout by filling the checkout form and can place an order .
+once registered user can move ahead to the protected routes like product page to see the product and can add them to cart . \
+Once product add  to cart user can checkout by filling the checkout form and can place an order .\
 To acess Admin feature user Must be an admin as an admin after logging in to his account Admin can add or delete product can see all the order and can manage order status .
 
 
